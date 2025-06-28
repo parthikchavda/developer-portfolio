@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parthik Chavda - Web Developers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --secondary-text: #666666;
+            --border-color: #e0e0e0;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --button-bg: #000000;
+            --button-text: #ffffff;
+            --button-secondary-bg: #f0f0f0;
+            --button-secondary-text: #000000;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --secondary-text: #cccccc;
+            --border-color: #333333;
+            --card-bg: #111111;
+            --nav-bg: rgba(0, 0, 0, 0.9);
+            --button-bg: #ffffff;
+            --button-text: #000000;
+            --button-secondary-bg: #333333;
+            --button-secondary-text: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(42, 42, 42, 0.6);
+            border-radius: 50px;
+            padding: 0;
+            max-width: 580px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(42, 42, 42, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] .navbar {
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 20px;
+            justify-content: space-between;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-right: 9px;
+        }
+
+        [data-theme="light"] .logo {
+            color: #000000;
+        }
+
+        .logo:hover::after {
+            display: none;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="light"] .nav-links a {
+            color: #000000;
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: currentColor;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-icon {
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="light"] .nav-icon {
+            color: #000000;
+        }
+
+        .nav-icon:hover {
+            opacity: 0.7;
+        }
+
+        .nav-icon.github:hover::after {
+            content: 'GitHub';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        [data-theme="light"] .nav-icon.github:hover::after {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .nav-icon.resume:hover::after {
+            content: 'Download Resume';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        [data-theme="light"] .nav-icon.resume:hover::after {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        [data-theme="light"] .nav-divider {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .theme-toggle {
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            color: #000000;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .theme-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-btn {
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] .contact-btn {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .contact-btn:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                padding: 0 10px;
+                max-width: none;
+            }
+            
+            .nav-container {
+                padding: 0 10px;
+                justify-content: space-between;
+                gap: 5px;
+            }
+            
+            .logo {
+                margin-right: 0;
+            }
+            
+            .nav-center {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 8px;
+            }
+            
+            .nav-links a {
+                font-size: 11px;
+                padding: 4px 6px;
+            }
+            
+            .nav-icons {
+                gap: 8px;
+            }
+            
+            .nav-icon {
+                font-size: 14px;
+            }
+            
+            .nav-right {
+                gap: 8px;
+            }
+            
+            .contact-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+            
+            .nav-divider {
+                height: 20px;
+            }
+            
+            .theme-toggle {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .navbar {
+                top: 15px;
+                left: 30px;
+                right: 30px;
+                max-width: 700px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .nav-center {
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .nav-links a {
+                font-size: 13px;
+            }
+            
+            .contact-btn {
+                padding: 10px 18px;
+                font-size: 13px;
+            }
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 0 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 90px;
+                padding: 0 15px;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .avatar img {
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            color: var(--secondary-text);
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary {
+            background: var(--button-secondary-bg);
+            color: var(--button-secondary-text);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 0;
+            margin: 0 20px;
+            margin-left: 200px;
+            margin-right: 200px;
+        }
+
+        .social-scroll {
+            display: flex;
+            gap: 20px;
+            animation: scroll-right-to-left 30s linear infinite;
+            width: max-content;
+        }
+
+        .social-scroll:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-right-to-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tech-icon:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .tech-icon.laravel { background: linear-gradient(135deg, #ff2d20, #ff6b35); }
+        .tech-icon.html { background: linear-gradient(135deg, #e34c26, #f06529); }
+        .tech-icon.css { background: linear-gradient(135deg, #1572b6, #33a9dc); }
+        .tech-icon.javascript { background: linear-gradient(135deg, #f7df1e, #ffda44); color: #000; }
+        .tech-icon.nodejs { background: linear-gradient(135deg, #339933, #68cc68); }
+        .tech-icon.react { background: linear-gradient(135deg, #61dafb, #21d4fd); color: #000; }
+        .tech-icon.vue { background: linear-gradient(135deg, #4fc08d, #42b883); }
+        .tech-icon.python { background: linear-gradient(135deg, #3776ab, #ffd343); }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+            
+            .hero-buttons {
+                gap: 10px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+
+            .social-links {
+                margin: 0 10px;
+            }
+
+            .tech-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 12px;
+            }
+        }
+
+        .about {
+            padding: 40px 0;
+        }
+
+        .about h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            color: var(--secondary-text);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .about-image {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: var(--button-secondary-bg);
+        }
+
+        @media (max-width: 768px) {
+            .about {
+                padding: 30px 0;
+            }
+            
+            .about h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            
+            .about-image img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .projects {
+            padding: 40px 0;
+        }
+
+        .projects h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--button-secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--secondary-text);
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--secondary-text);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-link:hover::before {
+            left: 100%;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        [data-theme="dark"] .project-link {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        [data-theme="dark"] .project-link:hover {
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .projects {
+                padding: 30px 0;
+            }
+            
+            .projects h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .projects-grid {
+                gap: 20px;
+            }
+            
+            .project-image {
+                height: 150px;
+                font-size: 36px;
+            }
+            
+            .project-content {
+                padding: 15px;
+            }
+            
+            .project-content h3 {
+                font-size: 16px;
+            }
+        }
+
+        .experience {
+            padding: 40px 0;
+        }
+
+        .experience h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+
+        .experience-item h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .experience-item .company {
+            color: var(--secondary-text);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .experience-item p {
+            color: var(--secondary-text);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .experience {
+                padding: 30px 0;
+            }
+            
+            .experience h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .experience-item {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .experience-item h3 {
+                font-size: 16px;
+            }
+        }
+
+        .contact {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            color: var(--secondary-text);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--text-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .send-btn {
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .contact {
+                padding: 30px 0;
+            }
+            
+            .contact h2 {
+                font-size: 20px;
+            }
+            
+            .contact-form {
+                max-width: 100%;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer p {
+            color: var(--secondary-text);
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-icon {
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        [data-theme="light"] .footer-icon {
+            color: #000000;
+        }
+
+        .footer-icon:hover {
+            opacity: 0.7;
+        }
+
+        .footer-icon.github:hover::after {
+            content: 'GitHub';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        .footer-icon.linkedin:hover::after {
+            content: 'LinkedIn';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        .footer-icon.email:hover::after {
+            content: 'Email';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        .footer-icon.twitter:hover::after {
+            content: 'Twitter';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-top: 5px;
+        }
+
+        [data-theme="light"] .footer-icon.github:hover::after,
+        [data-theme="light"] .footer-icon.linkedin:hover::after,
+        [data-theme="light"] .footer-icon.email:hover::after,
+        [data-theme="light"] .footer-icon.twitter:hover::after {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 30px 0;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .navbar {
+                top: 20px;
+                left: 40px;
+                right: 40px;
+            }
+
+            .main-content {
+                padding: 0 40px;
+            }
+
+            .hero {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-image img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .navbar {
+                top: 20px;
+                left: 60px;
+                right: 60px;
+            }
+
+            .main-content {
+                padding: 0 60px;
+            }
+
+            .hero {
+                padding: 100px 0;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .about-image img {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffffff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #000000;
+        }
+
+        [data-theme="dark"] .notification {
+            background: #111111;
+            color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo"> <img src="../files/logo.png" alt="Logo" style="height: 40px;"></a>
+            
+            <div class="nav-center">
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#experience">Experience</a>
+                </div>
+                <div class="nav-icons">
+                    <a href="https://github.com/parthikchavda" target="_blank" class="nav-icon github">🐙</a>
+                    <a href="../files/ParthikChavda_Resume.pdf" download="ParthikChavda_Resume.pdf" class="nav-icon resume">📄</a>
+                </div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="nav-divider"></div>
+                <button class="theme-toggle" id="themeToggle">🌙</button>
+                <button class="contact-btn">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <div class="avatar"><img src="../files/topimage.webp" alt="Logo" style="height: 80px;"></div>
+                <h1>Hi, I'm Parthik Chavda.<br></h1>
+                <p>Passionate and result-driven Web Developers with expertise in web development,<br>
+                mobile app development, and system design. Let's build something amazing together!</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn-primary">About Me</button>
+                    <button class="btn-secondary">Available for collaboration</button>
+                </div>
+
+                <div class="social-links">
+                    <div class="social-scroll">
+                        <div class="tech-icon laravel">Laravel</div>
+                        <div class="tech-icon html">HTML</div>
+                        <div class="tech-icon css">CSS</div>
+                        <div class="tech-icon javascript">JS</div>
+                        <div class="tech-icon nodejs">Node.js</div>
+                        <div class="tech-icon react">React</div>
+                        <div class="tech-icon vue">Vue.js</div>
+                        <div class="tech-icon python">Python</div>
+                        <div class="tech-icon laravel">Laravel</div>
+                        <div class="tech-icon html">HTML</div>
+                        <div class="tech-icon css">CSS</div>
+                        <div class="tech-icon javascript">JS</div>
+                        <div class="tech-icon nodejs">Node.js</div>
+                        <div class="tech-icon react">React</div>
+                        <div class="tech-icon vue">Vue.js</div>
+                        <div class="tech-icon python">Python</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="about" id="about">
+                <h2>About</h2>
+                <p>Hi! Parthik Chavda is passionate 30-year-old self-taught fullstack Web Developers with over 3 years of experience in mobile and web development. I love turning creative ideas into functional digital products that make people's lives easier.</p>
+                
+                <p>At 17, I've always loved and enjoyed the world of software—from aspiring to be a product and tech. I'm passionate about the field and how amazing the things I am able to do with code. I also love looking at how the product is developed and sometimes inspired by the technical ideas that can be turned into a product.</p>
+                
+                <p>I'm currently working on advanced front-end projects, diving deep into UI and actions engineering in point as we joined to a team-based design pattern. I'm also open to freelance opportunities and collaboration on projects that excite me and challenge me intellectually.</p>
+                
+                <p>In my free time, I enjoy spending my time playing games, watching anime, or web development and music. I'm currently based in Accra, Ghana, but I'm open to worldwide remote work opportunities.</p>
+
+                <div class="about-image">
+                    <img src="../files/profile.jpg" alt="Parthik Chavda" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                </div>
+            </section>
+
+            <section class="projects" id="projects">
+                <h2>Shipped Projects (Last 6 Months).</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">💼</div>
+                        <div class="project-content">
+                            <h3>Job Portal</h3>
+                            <p>A fully functional job portal with authentication and real-time job posting features. Built with React and Node.js.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">🚀</div>
+                        <div class="project-content">
+                            <h3>StartupFounder</h3>
+                            <p>A platform connecting startup founders with investors and co-founders. Features real-time messaging and profile matching.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">📚</div>
+                        <div class="project-content">
+                            <h3>Bookstore App</h3>
+                            <p>E-commerce bookstore application with shopping cart, payment integration, and user reviews.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">🎮</div>
+                        <div class="project-content">
+                            <h3>Pentagon Tokens</h3>
+                            <p>Blockchain-based gaming tokens with smart contracts and decentralized trading features.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">✅</div>
+                        <div class="project-content">
+                            <h3>TODO App</h3>
+                            <p>A minimalist todo app with drag-and-drop functionality and real-time synchronization across devices.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">🔔</div>
+                        <div class="project-content">
+                            <h3>Silent Alarm App</h3>
+                            <p>A silent alarm system for emergencies with GPS tracking and automated emergency contact notifications.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image">🧠</div>
+                        <div class="project-content">
+                            <h3>HydraMind (Hackathon Project)</h3>
+                            <p>An AI-powered hydration assistant that gives personalized water intake recommendations based on activity and weather.</p>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="experience" id="experience">
+                <h2>Work Experience</h2>
+                <div class="experience-item">
+                    <h3>Senior Web Developers</h3>
+                    <div class="company">TechCorp • San Francisco, CA • Jan 2022 - Present</div>
+                    <p>As a Staff Engineer, I led the implementation of complex distributed systems that served millions of users daily. I worked extensively with cloud infrastructure, microservices architecture, and high-performance databases. My role involved mentoring junior developers and establishing best practices for code quality and system reliability.</p>
+                </div>
+            </section>
+
+            <section class="contact" id="contact">
+                <h2>Get in touch</h2>
+                <p>Want to get in touch? Whether you're looking to hire or want to say hi, I'm<br>
+                here to respond as fast as possible and look forward to hearing from you.</p>
+                
+                <form class="contact-form">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <textarea placeholder="Message" required></textarea>
+                    <button type="submit" class="send-btn">Send Message</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Copyright © 2025 Parthik Chavda</p>
+        <p>All rights reserved</p>
+        <div class="footer-icons">
+            <a href="https://github.com/parthikchavda" target="_blank" class="footer-icon github">🐙</a>
+            <a href="https://www.linkedin.com/in/chavda-parthik/" target="_blank" class="footer-icon linkedin">💼</a>
+            <a href="mailto:parthikchavda625@gmail.com" class="footer-icon email">✉️</a>
+            <a href="" target="_blank" class="footer-icon twitter">🐦</a>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeToggle(currentTheme);
+        
+        function toggleTheme() {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeToggle(newTheme);
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        function updateThemeToggle(theme) {
+            const icon = theme === 'dark' ? '☀️' : '🌙';
+            themeToggle.innerHTML = icon;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact button in nav
+        document.querySelector('.contact-btn').addEventListener('click', function() {
+            document.querySelector('#contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Resume download handler
+        document.querySelector('.nav-icon.resume').addEventListener('click', function(e) {
+            // Note: The download attribute handles the file download
+            // The file path assumes the resume is in a 'files' directory relative to the HTML file
+            // No additional JavaScript is needed for basic download functionality
+        });
+
+        // Contact form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const name = this.querySelector('input[placeholder="Full Name"]').value;
+            const email = this.querySelector('input[placeholder="Email Address"]').value;
+            const message = this.querySelector('textarea[placeholder="Message"]').value;
+
+            // Construct mailto link
+            const mailtoLink = `mailto:parthikchavda625@gmail.com?subject=Message from ${name}&body=${encodeURIComponent(message)}\n\nFrom: ${email}`;
+            
+            // Open default email client
+            window.location.href = mailtoLink;
+
+            // Show custom notification
+            showNotification();
+
+            // Reset form
+            this.reset();
+        });
+
+        // Function to show notification
+        function showNotification() {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = 'Message sent 💜!';
+
+            // Append to body
+            document.body.appendChild(notification);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
